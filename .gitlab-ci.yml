@@ -1,4 +1,3 @@
-
 image: mono:latest
 
 stages:
@@ -8,7 +7,7 @@ stages:
 
 before_script:
   - nuget restore "home_work_2/home_work_2.sln" -NonInteractive
-  - nuget restore "home_work_2/home_work_3.sln" -NonInteractive
+  - nuget restore "home_work_3/home_work_3.sln" -NonInteractive
 
 #### HOME WORK 3 AREA ####
 
