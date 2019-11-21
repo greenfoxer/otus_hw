@@ -5,6 +5,11 @@ home_work_2/TestApplication/bin
 home_work_2/PlayerTests/obj
 home_work_2/PlayerTests/bin
 home_work_2/TestResults
+home_work_2/packages
+home_work_2/.vs
+
+home_work_3/.vs
+home_work_3/packages
 home_work_3/CircularList/bin
 home_work_3/CircularList/obj
 home_work_3/home_work_3/obj
@@ -12,4 +17,3 @@ home_work_3/home_work_3/bin
 home_work_3/CurcularListTests/obj
 home_work_3/CurcularListTests/bin
 home_work_3/TestResults
-/home_work_2/.vs/home_work_2/v16
