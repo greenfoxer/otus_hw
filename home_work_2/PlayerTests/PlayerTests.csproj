@@ -66,6 +66,8 @@
   <ItemGroup>
     <Content Include="bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
     <Content Include="bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="obj\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="obj\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
