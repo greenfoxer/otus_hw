@@ -17,7 +17,7 @@ image: mono:latest
 
 stages:
   - build
-#  - test
+  - test
   - deploy
 
 before_script:
@@ -35,10 +35,10 @@ release:
     - msbuild /p:Configuration="Release" /p:Platform="Any CPU"
       /p:OutputPath="./../../build/release/" "home_work_2/home_work_2.sln"
 
-#debug:
-#  stage: test
-#  script:
-#    # The output path is relative to the position of the csproj-file
-#    - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
-#      /p:OutputPath="./../../build/debug/" "MyProject.sln"
+debug:
+  stage: test
+  script:
+    # The output path is relative to the position of the csproj-file
+    - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
+      /p:OutputPath="./../../build/debug/" "home_work_2/home_work_2.sln"
 #    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe build/debug/MyProject.Test.dll
