@@ -18,8 +18,8 @@ namespace ClassLibrary
         public string Name { get; set; }
         public int Health { get; set; }
         int Strength { get; set; }
-        int BaseAttack { get; set; }
-        int BaseRecover { get; set; }
+        public int BaseAttack { get; private set; }
+        public int BaseRecover { get; private set; }
         //На персонаже могут быть ачивки (до 5 штук). По ним будет итератор.
         Achievment[] Achievments = new Achievment[5];
 
@@ -66,7 +66,8 @@ namespace ClassLibrary
         #region IChangedHealth_Realisation
         public void ReduceHealth(int damage)
         {
-            Health -= damage;
+            int instantDamage = damage > Health ? Health : damage; // сделаем так, чтобы не было оверкилла
+            Health -= instantDamage;
         }
         public void RecoverHealth(int healthup)
         {

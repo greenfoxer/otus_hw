@@ -36,6 +36,7 @@ namespace CircularList
         /// 5) Количество элементов
         /// 6) Содержит ли список конкретный элемент
         /// 7) Энумератор
+        /// 8) Индексатор
         /// </summary>
         #region Private Utils Logic
         Node<T> GetPrev(Node<T> current = null) // заглушка для нахождения предыдущего элемента перед данным
@@ -46,6 +47,15 @@ namespace CircularList
                 while (current.Next != currentHead)
                     current = current.Next;
             return current;
+        }
+        Node<T> GetPrevForSingleLink(Node<T> current = null) // заглушка для нахождения предыдущего элемента перед данным
+        // будет использоваться для реализации вставки элементов
+        {
+            Node<T> currentHead = _head ;
+            if (current != null && currentHead!=current)
+                while (currentHead.Next != current)
+                    currentHead = currentHead.Next;
+            return currentHead;
         }
         Node<T> GetElementNode(T element) // возвращает первый попавшийся элемент с заданным значением 
         {
@@ -255,7 +265,23 @@ namespace CircularList
             }
             while (current != _head);
         }
-
+        public T this[int index] // реализуем циклически-бесконечный индексатор, чтобы был
+        {
+            get 
+            {
+                int currentIndex= 0;
+                Node<T> currentNode = _head;
+                while (currentIndex < index)
+                {
+                    currentIndex++;
+                    currentNode = currentNode.Next;
+                }
+                return currentNode.Value;
+            }
+        }
+        /// <summary>
+        /// Метод сортировки пузырьком. Сортирует НОДЫ , а не значения.
+        /// </summary>
         public void BubleSort() // осртировка пузырьком
         {
             Node<T> a = null;
@@ -309,6 +335,62 @@ namespace CircularList
             current.Next = _head; // восстановим список
         }
 
+        void QuickSortList(Node<T> leftNode, Node<T> rightNode)
+        {
+            Node<T> startNode;
+            Node<T> currentNode;
+            T bufferValue;
+
+            if (leftNode == rightNode)
+                return;
+
+            startNode = leftNode;
+            currentNode = startNode.Next;
+
+            while (true)
+            {
+                if (startNode.Value.CompareTo(currentNode.Value) < 0)
+                {
+                    bufferValue = currentNode.Value;
+                    currentNode.Value = startNode.Value;
+                    startNode.Value = bufferValue;
+                }
+                if (currentNode == rightNode)
+                    break;
+                currentNode = currentNode.Next;
+            }
+            bufferValue = leftNode.Value;
+            leftNode.Value = currentNode.Value;
+            currentNode.Value = bufferValue;
+
+            Node<T> oldCurrentNode = currentNode;
+
+            currentNode = GetPrevForSingleLink(currentNode);
+            if (currentNode != null)
+                if ((GetPrevForSingleLink(leftNode) != currentNode) && (currentNode.Next != leftNode))
+                    QuickSortList(leftNode, currentNode);
+
+            currentNode = oldCurrentNode;
+            currentNode = currentNode.Next;
+            if (currentNode != null)
+                if ((GetPrevForSingleLink(currentNode) != rightNode) && (rightNode.Next != currentNode))
+                    QuickSortList(currentNode, rightNode);
+        }
+        /// <summary>
+        /// Метод быстрой сортировки. Сортирует ЗНАЧЕНИЯ , а не ноды.
+        /// В условиях ограниченного времени взято отсюда: 
+        /// https://www.ibm.com/developerworks/ru/library/l-data_structures_04/index.html
+        /// Использует рекурсивный вызов процедуры QuickSortList
+        /// </summary>
+        public void QuickSort()
+        {
+            Node<T> tail = GetPrev(_head);
+            tail.Next = null;  // разорвем список
+
+            QuickSortList(_head, tail);
+
+            tail.Next = _head; // восстановим список
+        }
 
     }
 }

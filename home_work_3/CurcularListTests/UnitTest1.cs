@@ -99,7 +99,7 @@ namespace CurcularListTests
             Assert.AreEqual(expected, counter, "Энумератор вывел меньшее количесво элементов");
         }
         [TestMethod]
-        public void CheckSorting()
+        public void CheckBubbleSorting()
         {
             CircularList<int> list = new CircularList<int>();
             list.Add(5);
@@ -119,6 +119,9 @@ namespace CurcularListTests
                 if (result[i] != expected[i])
                     isDif = true;
             Assert.AreEqual(false, isDif, "Есть несовпадающие элементы");
+            int checkPoint = 8 * 8 + 6; //  (n*k) + (l-1)
+            int expectedVal = 6;
+            Assert.AreEqual(expectedVal, list[checkPoint], "Список не работает, как кольцевой");
         }
         [TestMethod]
         public void CheckCircular()
@@ -144,7 +147,7 @@ namespace CurcularListTests
             Assert.AreEqual(head, currentNode, "Входная и выходная ноды не совпадают");
         }
         [TestMethod]
-        public void CheckGetSclice()
+        public void CheckGetSlice()
         {
             CircularList<int> list = new CircularList<int>();
             list.Add(1);
@@ -157,7 +160,49 @@ namespace CurcularListTests
             list.Add(8);
             int[] t = list.GetSlice(5);
             Assert.AreEqual(5, t[0], "Не совпадает первый элемент ожидаемой последовательности");
-            Assert.AreEqual(4, t[t.Length-1], "Не совпадает ппоследний элемент ожидаемой последовательности");
+            Assert.AreEqual(4, t[t.Length-1], "Не совпадает последний элемент ожидаемой последовательности");
+        }
+        [TestMethod]
+        public void CheckQuickSorting()
+        {
+            CircularList<int> list = new CircularList<int>();
+            list.Add(5);
+            list.Add(2);
+            list.Add(3);
+            list.Add(5);
+            list.Add(6);
+            list.Add(2);
+            list.Add(5);
+            list.Add(7);
+            list.QuickSort();
+            int[] expected = { 2, 2, 3, 5, 5, 5, 6, 7 };
+            int[] result = list.GetSlice();
+            Assert.AreEqual(expected.Length, result.Length, "Не совпадает количество элементов в массивах");
+            bool isDif = false;
+            for (int i = 0; i < expected.Length; i++)
+                if (result[i] != expected[i])
+                    isDif = true;
+            Assert.AreEqual(false, isDif, "Есть несовпадающие элементы");
+            int checkPoint = 8 * 6 + 6; //  (n*k) + (l-1)
+            int expectedVal = 6;
+            Assert.AreEqual(expectedVal, list[checkPoint], "Список не работает, как кольцевой");
+
+        }
+        [TestMethod]
+        public void CheckIndexator()
+        {
+            CircularList<int> list = new CircularList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            list.Add(5);
+            list.Add(6);
+            list.Add(7);
+            list.Add(8);
+            int checkPoint = 8 * 6 + 1;
+            int expectedVal = 2;
+            Assert.AreEqual(expectedVal, list[checkPoint], "Не совпадает последний элемент ожидаемой последовательности");
         }
     }
 }

@@ -9,6 +9,7 @@ namespace CircularList
     interface IAlgorithm
     {
         void BubleSort();
+        void QuickSort();
 
     }
 }

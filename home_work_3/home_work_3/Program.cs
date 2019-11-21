@@ -29,7 +29,7 @@ namespace home_work_3
             test2.Add(2);
             test2.Add(3);
             test2.Add(5);
-            test2.Add(6);
+            Node<int> testNode = test2.Add(6);
             test2.Add(2);
             test2.Add(5);
             test2.Add(7);
@@ -40,15 +40,17 @@ namespace home_work_3
             Console.WriteLine("$$$$$$$$$$$$$$$$$$");
             //test2.RemoveAll(5);
             test2.BubleSort();
+            //test2.QuickSort();
             foreach (int item in test2)
             {
                 Console.WriteLine(item);
             }
-            test2.RemoveAll(5);
-            foreach (int item in test2)
-            {
-                Console.WriteLine(item);
-            }
+            //}
+            //test2.RemoveAll(5);
+            //foreach (int item in test2)
+            //{
+            //    Console.WriteLine(item);
+            //}
             Console.ReadKey();
         }
     }

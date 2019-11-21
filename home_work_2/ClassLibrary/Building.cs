@@ -12,7 +12,7 @@ namespace ClassLibrary
     public class Building : IChangedHealth
     {
         string Name { get; set; }
-        int Durability { get; set; }
+        public int Durability { get; private set; }
         public void ReduceHealth(int damage)
         {
             Durability -= damage; 
