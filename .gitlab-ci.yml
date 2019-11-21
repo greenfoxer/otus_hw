@@ -1,18 +1,4 @@
-# This file is a template, and might need editing before it works on your project.
-# This is a simple gitlab continuous integration template (compatible with the shared runner provided on gitlab.com)
-# using the official mono docker image to build a visual studio project.
-#
-# MyProject.sln
-#   MyProject\
-#     MyProject\
-#        MyProject.csproj (console application)
-#     MyProject.Test\
-#        MyProject.Test.csproj (test library using nuget packages "NUnit" and "NUnit.ConsoleRunner")
-#
-# Please find the full example project here:
-# https://gitlab.com/tobiaskoch/gitlab-ci-example-mono
 
-# see https://hub.docker.com/_/mono/
 image: mono:latest
 
 stages:
@@ -22,8 +8,11 @@ stages:
 
 before_script:
   - nuget restore "home_work_2/home_work_2.sln" -NonInteractive
+  - nuget restore "home_work_2/home_work_3.sln" -NonInteractive
 
-release:
+#### HOME WORK 3 AREA ####
+
+release_hw2:
   stage: deploy
   only:
     - master
@@ -35,10 +24,31 @@ release:
     - msbuild /p:Configuration="Release" /p:Platform="Any CPU"
       /p:OutputPath="./../../build/release/" "home_work_2/home_work_2.sln"
 
-debug:
+debug_hw2:
   stage: test
   script:
     # The output path is relative to the position of the csproj-file
     - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
       /p:OutputPath="./../../build/debug/" "home_work_2/home_work_2.sln"
+#    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe build/debug/MyProject.Test.dll
+
+#### HOME WORK 3 AREA ####
+release_hw3:
+  stage: deploy
+  only:
+    - master
+  artifacts:
+    paths:
+      - build/release/home_work_3.exe
+  script:
+    # The output path is relative to the position of the csproj-file
+    - msbuild /p:Configuration="Release" /p:Platform="Any CPU"
+      /p:OutputPath="./../../build/release/" "home_work_3/home_work_3.sln"
+
+debug_hw3:
+  stage: test
+  script:
+    # The output path is relative to the position of the csproj-file
+    - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
+      /p:OutputPath="./../../build/debug/" "home_work_3/home_work_3.sln"
 #    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe build/debug/MyProject.Test.dll
