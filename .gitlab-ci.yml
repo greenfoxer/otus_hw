@@ -21,7 +21,7 @@ stages:
   - deploy
 
 before_script:
-  - nuget restore "home_work_2/home_work_2.sln" #-NonInteractive
+  - nuget restore "home_work_2/home_work_2.sln" -NonInteractive
 
 release:
   stage: deploy
