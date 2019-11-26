@@ -8,6 +8,7 @@ stages:
 before_script:
   - nuget restore "home_work_2/home_work_2.sln" -NonInteractive
   - nuget restore "home_work_3/home_work_3.sln" -NonInteractive
+  - nuget restore "home_work_4/home_work_4.sln" -NonInteractive
 
 #### HOME WORK 3 AREA ####
 
@@ -29,7 +30,7 @@ debug_hw2:
     # The output path is relative to the position of the csproj-file
     - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
       /p:OutputPath="./../../build/debug/" "home_work_2/home_work_2.sln"
-#    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe build/debug/MyProject.Test.dll
+    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe PlayerLibNUnitTest/build/debug/PlayerLibNUnitTest.dll
 
 #### HOME WORK 3 AREA ####
 release_hw3:
