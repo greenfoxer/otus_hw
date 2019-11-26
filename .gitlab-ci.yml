@@ -30,7 +30,7 @@ debug_hw2:
     # The output path is relative to the position of the csproj-file
     - msbuild /p:Configuration="Debug" /p:Platform="Any CPU"
       /p:OutputPath="./../../build/debug/" "home_work_2/home_work_2.sln"
-    - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe PlayerLibNUnitTest/build/debug/PlayerLibNUnitTest.dll
+    - mono packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe PlayerLibNUnitTest/build/debug/PlayerLibNUnitTest.dll
 
 #### HOME WORK 3 AREA ####
 release_hw3:
