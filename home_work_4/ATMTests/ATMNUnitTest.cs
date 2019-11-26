@@ -58,9 +58,9 @@ namespace ATMTests
         public void RefillsTest() // 
         {
             ATMBusinessLayer.DataAccessLayer dal = new ATMBusinessLayer.DataAccessLayer();
-            int expected = 11 ;
+            int expected = 11;
             List<object> refills = dal.GetRefillsWithUsers();
-            Assert.AreEqual(expected,refills.Count,"Количество не совпадает с ожидаемым");
+            Assert.AreEqual(expected, refills.Count, "Количество не совпадает с ожидаемым");
             foreach (var item in refills)
             {
                 object user = GetAnonimousObjectPropertyObject(item, "user");
@@ -83,6 +83,15 @@ namespace ATMTests
                 long result;
                 Assert.AreEqual(true, Int64.TryParse(GetAnonimousObjectPropertyValue(item, "account"), out result), "Неверный идентификатор счета");
             }
-        } 
+        }
+        [Test]
+        public void MoreThanNTotalTest() // 
+        {
+            int N = 100000;
+            ATMBusinessLayer.DataAccessLayer dal = new ATMBusinessLayer.DataAccessLayer();
+            List<object> moreThanN = dal.GetUserHavingTotalMoreThanN(N);
+            int expected = 3;
+            Assert.AreEqual(expected, moreThanN.Count, "Количество не совпадает с ожидаемым");
+        }
     }
 }

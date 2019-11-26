@@ -58,5 +58,10 @@ namespace ATMBusinessLayer
         {
             return new List<object>(Accounts.Where(a => a.Total >= N).Join(Users, a => a.IdOwner, u => u.Id, (a, u) => new { account = a.Id, total = a.Total, user = u.ToString()}));
         }
+        // 5.1) Данные о пользователях, где сумма всех счетов больше N
+        public List<object> GetUserHavingTotalMoreThanN(decimal N)
+        {
+            return new List<object>(Accounts.GroupBy(p => p.IdOwner).Select(t => new { total = t.Sum(r => r.Total) , owner = t.Key}).Where(u => u.total >= N).Join(Users,d=>d.owner,u => u.Id, (d,u) => new { total = d.total, user = u.ToString()}));
+        }
     }
 }

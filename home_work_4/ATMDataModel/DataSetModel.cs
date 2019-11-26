@@ -12,14 +12,15 @@ namespace ATMDataModel
         public DataSet ATMModel;
         public DataSetModel()
         {
-            ATMModel = new DataSet("dbATM");
-            DataTable tUser = new DataTable("tUser");
+            ATMModel = new DataSet("dbATM"); // определим наш dataset dbATM
+
+            DataTable tUser = new DataTable("tUser"); // определим таблицу с пользователями
             ATMModel.Tables.Add(tUser);
 
             DataColumn idColumn = new DataColumn("id", Type.GetType("System.Int64"));
             idColumn.Unique = true;
             idColumn.AllowDBNull = false;
-            //idColumn.AutoIncrement = true;
+            //idColumn.AutoIncrement = true; // в целом это важно, но конкретно сейчас будем заполнять все вручную
             //idColumn.AutoIncrementSeed = 1;
             //idColumn.AutoIncrementStep = 1;
 
@@ -45,7 +46,7 @@ namespace ATMDataModel
 
             tUser.PrimaryKey = new DataColumn[] { tUser.Columns["id"] };
 
-            DataTable tAccount = new DataTable("tAccount");
+            DataTable tAccount = new DataTable("tAccount"); // определим таблицу со счетами
             ATMModel.Tables.Add(tAccount);
 
             DataColumn idAccountColumn = new DataColumn("id", Type.GetType("System.Int64"));
@@ -73,7 +74,7 @@ namespace ATMDataModel
 
             tAccount.PrimaryKey = new DataColumn[] { tAccount.Columns["id"] };
 
-            DataTable tHistory = new DataTable("tHistory");
+            DataTable tHistory = new DataTable("tHistory"); // определим таблицу с историей транзакций
             ATMModel.Tables.Add(tHistory);
 
             DataColumn idHistoryColumn = new DataColumn("id", Type.GetType("System.Int64"));
@@ -105,7 +106,7 @@ namespace ATMDataModel
 
             Fill();
         }
-        void Fill()
+        void Fill() // заполним наш dataset
         {
             DataTable tUser = ATMModel.Tables["tUser"];
             tUser.Rows.Add(new object[] { 1, "Иван", "Иванов", "Иванович", "8-987-654-32-11", "9988-123654", DateTime.Now, "test", "1234" });

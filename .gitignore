@@ -2,5 +2,10 @@ home_work_*/packages/
 home_work_*/*/bin/
 home_work_*/*/obj/
 home_work_*/TestResults/
-.vs/
-*/.vs
+/.vs/
+*/.vs/
+
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

@@ -55,6 +55,13 @@ namespace home_work_4
             }
 
 
+            N = 100000;
+            Console.WriteLine("Сумма \t Владелец");
+            foreach (var item in dal.GetUserHavingTotalMoreThanN(N))
+            {
+                Console.WriteLine( GetAnonimousObjectPropertyValue(item, "total")
+                                   + '\t' + GetAnonimousObjectPropertyValue(item, "user"));
+            }
             Console.ReadKey();
         }
     }
