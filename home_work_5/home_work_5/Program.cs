@@ -90,6 +90,8 @@ namespace home_work_5
                 //string address = "https://stackoverflow.com/questions/15128766/write-boldface-text-using-console-writeline-c-or-printfn-f";
                 //string address = "https://stackoverflow.com/questions/5525181/find-each-regex-match-in-string";
                 string address = "http://tommarien.github.io/blog/2012/04/16/showdown-mstest-vs-nunit/";
+                //Test Zone
+                //string address = "http://yandex.ru";
                 string result = GetHtml(address);
                 if (result != null)
                 {
@@ -100,6 +102,7 @@ namespace home_work_5
                         Console.WriteLine("\t" + i++.ToString()+ ": " +item);
                     Console.WriteLine("Total: " + (i-1).ToString());
                 }
+                
                 //endtest
             }
             Console.ReadKey();
