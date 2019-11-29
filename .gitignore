@@ -9,3 +9,5 @@ home_work_*/TestResults/
 *.user
 *.userosscache
 *.sln.docstates
+
+home_work_*/.nuget/
