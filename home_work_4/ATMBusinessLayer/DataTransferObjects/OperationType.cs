@@ -8,7 +8,7 @@ namespace ATMBusinessLayer
 {
     public enum OperationType
     {
-        Пополнение = 1,
-        Вывод = 2
+        Refill = 1,
+        Withdrawal = 2
     }
 }

@@ -110,7 +110,7 @@ namespace ATMDataModel
         {
             DataTable tUser = ATMModel.Tables["tUser"];
             tUser.Rows.Add(new object[] { 1, "Иван", "Иванов", "Иванович", "8-987-654-32-11", "9988-123654", DateTime.Now, "test", "1234" });
-            tUser.Rows.Add(new object[] { 2, "Петр", "Петров", "Петрович", "8-965-489-25-16", "9782-127636", DateTime.Now, "petro", "qwer" });
+            tUser.Rows.Add(new object[] { 2, "Петр", "Петров", "Петрович", "8-965-489-25-16", "9782-127636", DateTime.Now, "petro", "qwerty" });
             tUser.Rows.Add(new object[] { 3, "Сидор", "Сидоров", "Сидорович", "8-967-664-62-61", "9163-183143", DateTime.Now, "cider", "cider" });
             tUser.Rows.Add(new object[] { 4, "Маша", "Иванова", "Ивановна", "8-546-654-32-12", "9912-124154", DateTime.Now, "mariya", "qazwsx" });
             tUser.Rows.Add(new object[] { 5, "Глаша", "Петрова", "Ивановна", "8-937-654-71-11", "9188-122854", DateTime.Now, "pewpew", "atata" });

@@ -33,7 +33,7 @@ namespace ATMTests
         public void CountAccountsTest() // проверим, что пункт 2 возвращает правильное количество счетов
         {
             ATMBusinessLayer.DataAccessLayer dal = new ATMBusinessLayer.DataAccessLayer();
-            ATMBusinessLayer.User test = dal.GetInfoAbout("petro", "qwer");
+            ATMBusinessLayer.User test = dal.GetInfoAbout("petro", "qwerty");
             int expected = 5;
             Assert.AreEqual(expected, dal.GetUserAccount(test).Count, "Неверное количество счетов для пользователя");
         }

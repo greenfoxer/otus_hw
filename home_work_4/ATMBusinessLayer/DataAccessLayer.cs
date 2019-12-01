@@ -15,20 +15,16 @@ namespace ATMBusinessLayer
         public List<Account> Accounts;
         public List<History> Histories;
         public DataAccessLayer()
-        { 
-            MapperConfiguration config;
-            config = new MapperConfiguration(a => {a.AddProfile(new AutoMapperUserProfile());});
-            IMapper mapper;
-            mapper = config.CreateMapper();
+        {
             ATMDataModel.DataSetModel db = new DataSetModel();
+
+            IMapper mapper = new MapperConfiguration(a => { a.AddProfile(new AutoMapperUserProfile()); }).CreateMapper();
             Users = mapper.Map<List<DataRow>, List<User>>(new List<DataRow>(db.ATMModel.Tables["tUser"].Rows.OfType<DataRow>()));
 
-            config = new MapperConfiguration(a => { a.AddProfile(new AutoMapperAccountProfile()); });
-            mapper = config.CreateMapper();
+            mapper = new MapperConfiguration(a => { a.AddProfile(new AutoMapperAccountProfile()); }).CreateMapper();
             Accounts = mapper.Map<List<DataRow>, List<Account>>(new List<DataRow>(db.ATMModel.Tables["tAccount"].Rows.OfType<DataRow>()));
-            
-            config = new MapperConfiguration(a => { a.AddProfile(new AutoMapperHistoryProfile()); });
-            mapper = config.CreateMapper();
+
+            mapper = new MapperConfiguration(a => { a.AddProfile(new AutoMapperHistoryProfile()); }).CreateMapper();
             Histories = mapper.Map<List<DataRow>, List<History>>(new List<DataRow>(db.ATMModel.Tables["tHistory"].Rows.OfType<DataRow>()));
         }
         
@@ -36,7 +32,7 @@ namespace ATMBusinessLayer
         // 1) получение информации об аккаунте по логину и паролю
         public User GetInfoAbout(string login, string pass)
         {
-            return Users.Where(t => t.Login == login && t.Password == pass).FirstOrDefault();
+            return Users.Where(t => string.Compare(t.Login,login, StringComparison.InvariantCulture) == 0 && string.Compare(t.Password, pass, StringComparison.InvariantCulture) == 0).FirstOrDefault();
         }
         // 2) Вывод данных о все счетах пользователя
         public List<Account> GetUserAccount(User user)
@@ -51,7 +47,7 @@ namespace ATMBusinessLayer
         // 4) Пополнения всех счетов с информацией по пользователю
         public List<object> GetRefillsWithUsers()
         {
-            return new List<object>(Histories.Where(h => h.OpType == OperationType.Пополнение).Join(Accounts, h => h.IdAccount, a => a.Id, (h, a) => new { date = h.DateOperation, amount = h.Amount, account = a.Id, idowner = a.IdOwner }).Join(Users, d => d.idowner, u => u.Id, (d, u) => new { d.date, d.amount, d.account, user = u }));
+            return new List<object>(Histories.Where(h => h.OpType == OperationType.Refill).Join(Accounts, h => h.IdAccount, a => a.Id, (h, a) => new { date = h.DateOperation, amount = h.Amount, account = a.Id, idowner = a.IdOwner }).Join(Users, d => d.idowner, u => u.Id, (d, u) => new { d.date, d.amount, d.account, user = u }));
         }
         // 5) Данные о пользователях и счетах, где сумма больше N
         public List<object> GetUsersAndAccountsWithTotal(decimal N)
