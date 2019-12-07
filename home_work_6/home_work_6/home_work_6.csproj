@@ -45,8 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deserializers\CustomSerializer.cs" />
+    <Compile Include="Decorators\DecoratorForSerializer.cs" />
+    <Compile Include="F-class.cs" />
+    <Compile Include="Deserializers\JsonSerializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Deserializers\Serializer.cs" />
+    <Compile Include="Decorators\TimerDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
