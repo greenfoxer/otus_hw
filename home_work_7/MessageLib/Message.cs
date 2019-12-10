@@ -10,8 +10,6 @@ namespace MessageLib
     public class Message
     {
         [JsonRequired]
-        public string senderId;
-        [JsonRequired]
         public string sender;
         [JsonRequired]
         public string body;
@@ -25,18 +23,16 @@ namespace MessageLib
         {
             return JsonConvert.SerializeObject(this);
         }
-        public void SetMessageInfo(MessageType type=MessageType.ServerMessage, string sender = "server", string senderId = "")
+        public void SetMessageInfo(MessageType type=MessageType.ServerMessage, string sender = "server")
         {
             this.sender = sender;
-            this.senderId = senderId;
         }
 
         public Message() { }
-        public Message(string body,string sender="", string senderId="")
+        public Message(string body,string sender="")
         {
             this.body = body;
             this.sender = sender;
-            this.senderId = senderId;
             this.type = MessageType.UserMessage;
         }
     }

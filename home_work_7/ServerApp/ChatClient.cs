@@ -38,7 +38,7 @@ namespace ServerApp
             while (Stream.DataAvailable);
 
             Message message = Message.DeSerialize(builder.ToString());
-            message.SetMessageInfo(MessageType.UserMessage, this.UserName, this.Id);
+            message.SetMessageInfo(MessageType.UserMessage, this.UserName);
             return message;
         }
 
@@ -68,7 +68,7 @@ namespace ServerApp
                     try
                     {
                         message = GetMessage();
-                        server.BroadcastMessage(message);
+                        server.BroadcastMessage(message, Id);
                     }
                     catch
                     {

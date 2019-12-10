@@ -70,9 +70,10 @@ namespace home_work_7
                     Message message = Message.DeSerialize(builder.ToString());
                     Console.WriteLine(message.sender+"> "+message.body);
                 }
-                catch 
+                catch (Exception ex)
                 {
                     Console.WriteLine("Connection lost!");
+                    Console.WriteLine(ex.Message);
                     Console.ReadKey();
                     Disconnect();
                 }

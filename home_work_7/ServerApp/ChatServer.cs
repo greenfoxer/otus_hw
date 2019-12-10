@@ -23,11 +23,11 @@ namespace ServerApp
             if (client != null)
                 clients.Remove(client);
         }
-        protected internal void BroadcastMessage(Message message)
+        protected internal void BroadcastMessage(Message message, string senderId="server")
         {
             byte[] data = Encoding.Unicode.GetBytes(message.Serialize());
             Console.WriteLine(message.Serialize());
-            foreach (var client in clients.Where(c => string.Compare(c.Id, message.senderId) != 0))
+            foreach (var client in clients.Where(c => string.Compare(c.Id, senderId) != 0))
                 client.Stream.Write(data, 0, data.Length);
         }
         protected internal void StopServer()
