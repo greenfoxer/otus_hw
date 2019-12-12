@@ -25,10 +25,15 @@ namespace ServerApp
         }
         protected internal void BroadcastMessage(Message message, string senderId="server")
         {
-            byte[] data = Encoding.Unicode.GetBytes(message.Serialize());
-            Console.WriteLine(message.Serialize());
+            // зафиксируем объект для отправки в виде массива байт
+            byte[] data = Utils.Serialize(message).ToArray();// Encoding.Unicode.GetBytes(message.Serialize());
+            Console.WriteLine(message.Serialize());//выведем сообщение как JSON
+            Console.WriteLine(string.Join("",data));//выведем сообщение как массив байт
             foreach (var client in clients.Where(c => string.Compare(c.Id, senderId) != 0))
+            {
                 client.Stream.Write(data, 0, data.Length);
+                //Utils.serialize(message).CopyTo(client.Stream); //неэффективно выполнять для каждого пользователя, поэтому используем буфер
+            }
         }
         protected internal void StopServer()
         {

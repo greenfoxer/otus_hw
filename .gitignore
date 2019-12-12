@@ -2,6 +2,8 @@ home_work_*/packages/
 home_work_*/*/bin/
 home_work_*/*/obj/
 home_work_*/TestResults/
+home_work_*/.nuget/
+
 /.vs/
 */.vs/
 
@@ -9,5 +11,3 @@ home_work_*/TestResults/
 *.user
 *.userosscache
 *.sln.docstates
-
-home_work_*/.nuget/

@@ -27,19 +27,47 @@ namespace ServerApp
 
         private Message GetMessage()
         {
-            byte[] data = new byte[512];
-            StringBuilder builder = new StringBuilder();
-            int bytes = 0;
-            do
-            {
-                bytes = Stream.Read(data, 0, data.Length);
-                builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-            }
-            while (Stream.DataAvailable);
+            // Получение сообщений в виде JSON 
+            //byte[] data = new byte[512];
+            //StringBuilder builder = new StringBuilder();
+            //int bytes = 0;
+            //do
+            //{
+            //    bytes = Stream.Read(data, 0, data.Length);
+            //    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+            //}
+            //while (Stream.DataAvailable);
 
-            Message message = Message.DeSerialize(builder.ToString());
+            //Message message = Message.DeSerialize(builder.ToString());
+
+            // Получение сообщений из потока как массива байт
+            byte[] data = new byte[512];
+
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            {
+                int bytes = 0;
+                do
+                {
+                    bytes = Stream.Read(data, 0, data.Length);
+                    ms.Write(data, 0, bytes);
+                }
+                while (Stream.DataAvailable);
+                data = ms.ToArray();
+            }
+
+            Message message = Utils.DeSerialize(data);
+            if (message.type == MessageType.ErrorMessage)
+            {
+                SendBackMessage(message);
+                throw new Exception(message.body);
+            }
             message.SetMessageInfo(MessageType.UserMessage, this.UserName);
             return message;
+        }
+        // Отправка сообщения только самому себе
+        protected internal void  SendBackMessage(Message message)
+        {
+            Utils.Serialize(message).CopyTo(Stream);
         }
 
         protected internal void Close()
@@ -57,9 +85,11 @@ namespace ServerApp
         {
             try
             {
+                
                 Stream = client.GetStream();
                 Message message = GetMessage();
                 UserName = message.body;
+                //Todo проверку на уникальнотсь имени
 
                 message = server.ServiceMessage(UserName + " joined chat!");
                 server.BroadcastMessage(message);
